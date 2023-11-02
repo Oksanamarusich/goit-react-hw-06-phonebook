@@ -1,18 +1,18 @@
-
+import { useSelector } from 'react-redux';
 import {ContainerFilter, Label, FilterInput } from "./Filter.styled"
 
-export const Filter = ({ filter, onChangeFilter }) => {
+export const Filter = () => {
+    const filter = useSelector(state => state.filter);
+    console.log('FILTER', filter);
     return (<ContainerFilter>
         <Label>
             Find contact by name 
         </Label>
             <FilterInput 
                 type="text"
-                name="name"
-                defaultValue={filter}
-                onChange={evt => {
-                    onChangeFilter(evt.target.value)
-                }}
+            name="name"
+            value={filter}
+            //onChange = {}
                 />
         
     </ContainerFilter>

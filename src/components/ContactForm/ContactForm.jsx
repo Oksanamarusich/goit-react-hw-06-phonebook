@@ -43,9 +43,7 @@ export const ContactForm = ({ onAdd }) => {
           <Error name ="number" component ="div"/>
         </Label>
         
-
-        
-        <Button type="submit"><FaUserPlus/> Add contacts</Button>
+        <Button type="submit"><FaUserPlus /> Add contacts</Button>
       </StyledForm>
     </Formik>
   
