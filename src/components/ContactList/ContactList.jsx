@@ -1,15 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addContacts, deleteContacts } from 'redux/contactsSlise';
+import { deleteContacts } from 'redux/contactsSlise';
 
 import { FaTrashAlt } from "react-icons/fa";
 import {Container, List, ListItem, Button} from './ContactList.styled'
 
 export const ContactList = () => {
-    const contacts = useSelector(state => state.contacts.name);
-    console.log(contacts);
+    const contacts = useSelector(state => state.contacts.contacts);
+    const filter = useSelector(state => state.filter.filter);
+    console.log('Filter-list', filter)
+    console.log('ContactList', contacts);
     const dispatch = useDispatch();
+    
+    const getVisibleName = contacts.filter(contact =>
+       contact.name.toLowerCase().includes(filter.toLowerCase()));
+   
+
  return <Container>
-        {contacts.map(({ id, name, number }) => (
+        {getVisibleName.map(({ id, name, number }) => (
             <List key = {id}>
                 <ListItem><p>{name}: {number}</p>
                     <Button type="button"

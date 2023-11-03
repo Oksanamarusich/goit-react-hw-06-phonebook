@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeFilter } from 'redux/filterSlice';
 import {ContainerFilter, Label, FilterInput } from "./Filter.styled"
 
 export const Filter = () => {
-    const filter = useSelector(state => state.filter);
-    console.log('FILTER', filter);
+    //const filter = useSelector(state => state.filter);
+    //console.log('FILTER', filter);
+    const dispatch = useDispatch();
     return (<ContainerFilter>
         <Label>
             Find contact by name 
@@ -11,8 +13,8 @@ export const Filter = () => {
             <FilterInput 
                 type="text"
             name="name"
-            value={filter}
-            //onChange = {}
+            //value={filter}
+            onChange = {(evt) => dispatch(changeFilter(evt.target.value))}
                 />
         
     </ContainerFilter>

@@ -1,4 +1,7 @@
-import { Formik  } from 'formik';
+import { Formik } from 'formik';
+import { useDispatch, useSelector } from "react-redux";
+import { addContacts } from 'redux/contactsSlise';
+
 import * as Yup from 'yup';
 import { FaUserPlus } from "react-icons/fa";
 
@@ -15,7 +18,36 @@ import { Container,StyledForm, StyledField, Button, Label, Error } from "./Conta
   
  });
 
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contacts);
+  console.log('Form-contacts', contacts)
+
+  const onSubmitForm = (values, actions) => {
+    const payload = {
+          name: values.name,
+          number: values.number
+    };
+    console.log('payload.name', payload.name);
+    console.log('values.name', values.name)
+
+    const nameContact = contacts.filter(contact =>
+      contact.name.toLowerCase().trim() === payload.name.toLowerCase().trim()).length;
+    const numberContact = contacts.filter(contact =>
+      contact.number.trim() === payload.number.trim()).length;
+     
+    if (nameContact || numberContact) {
+      alert(`${payload.name}: is already in contacts`)
+      actions.resetForm();
+          return;
+    };
+    
+    dispatch(addContacts(payload));
+    actions.resetForm(); 
+    
+  }
+
+  
   return <Container>
      <Formik
     initialValues={{
@@ -24,10 +56,7 @@ export const ContactForm = ({ onAdd }) => {
       
       }}
     validationSchema={FormSchema}
-    onSubmit={(values, actions) => {
-      onAdd(values);
-      actions.resetForm();
-    }}
+      onSubmit={onSubmitForm}
     >
       <StyledForm>
         
@@ -50,3 +79,51 @@ export const ContactForm = ({ onAdd }) => {
 
   </Container>
 }
+
+// перевірка чи існує контакт робити під час сабміту
+ //contacts.filter(
+//       contact =>
+//         contact.name.toLowerCase().trim() ===
+//         newContact.name.toLowerCase().trim() ||
+//         contact.number.trim() === newContact.number.trim()
+//     ).length
+//       ? alert(`${newContact.name}: is already in contacts`):
+
+
+
+
+
+// return <Container>
+//      <Formik
+//     initialValues={{
+//       name: '',
+//       number: '',
+      
+//       }}
+//     validationSchema={FormSchema}
+//     onSubmit={(values, actions) => {
+//       onAdd(values);
+//       actions.resetForm();
+//     }}
+//     >
+//       <StyledForm>
+        
+//         <Label>
+//            Name
+//           <StyledField name="name" />
+//           <Error name ="name" component ="div"/>
+//         </Label>
+        
+//         <Label>
+//           Number
+//           <StyledField type="tel" name="number" />
+//           <Error name ="number" component ="div"/>
+//         </Label>
+        
+//         <Button type="submit"><FaUserPlus /> Add contacts</Button>
+//       </StyledForm>
+//     </Formik>
+  
+
+//   </Container>
+// }
