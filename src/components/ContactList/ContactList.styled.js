@@ -26,6 +26,9 @@ color: ${prop => prop.theme.colors.light};
 `
 
 export const Button = styled.button`
+display: flex;
+justify-content: center;
+align-items: center;
 border: transparent;
 background-color: #fffed5;
 border-radius: 4px;
@@ -37,4 +40,9 @@ cursor:pointer;
   border:0;
   box-shadow: ${props => props.theme.shadows.regular};
  }
-`
+`;
+export const ContainerButtons = styled.div`
+display: flex;
+flex-direction: column;
+margin-left: 20px;
+`;

@@ -28,7 +28,7 @@ li{
 }
 
 h1,h2{
-  margin-bottom: 20px;
+  margin: 20px 0;
   text-align: center;
 
   text-transform: uppercase;

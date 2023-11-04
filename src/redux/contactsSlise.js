@@ -14,11 +14,7 @@ const contactsSlice = createSlice({
     
     reducers: {
         addContacts: {
-
             reducer(state, action) {
-                 console.log('ADD', state);
-                 console.log('ADD ACTION', action);  
-                //state.push(action.payload);
                 state.contacts = [...state.contacts, action.payload];
             },
             prepare(name) {
@@ -29,38 +25,16 @@ const contactsSlice = createSlice({
                     },
                 };
             },
-        }, 
+        },
           
-                
+        deleteContacts(state, action) {
+            state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
                
-        
-            
-            // prepare(name, number) {
-            //     return {
-            //         payload: {
-            //             name,
-            //             number,
-            //             id: nanoid(),
-            //         },
-
-            //     }
-            
-            deleteContacts(state, action) {
-                state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
-                console.log('DELETE', action)
-                console.log('DELETE', state)
-            },
-
-            //         getVisibleName(state, action){
-            //             state.contacts = state.contacts.filter(contact =>
-            //                 contact.name.toLowerCase().includes(filter.toLowerCase()));
-            //   }
-        
-        }
+        },
     }
+}
 );
 
-console.log('contactsSlise', contactsSlice);
 
 const persistConfig = {
     key: 'root',
